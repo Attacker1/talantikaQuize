@@ -49,7 +49,7 @@ router.beforeEach((to, from) => {
 })
 
 const checkTokenAuthenticity = () => {
-  axios.get('http://localhost/api/user', {
+  axios.get('/api/user', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }

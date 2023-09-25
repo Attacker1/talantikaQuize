@@ -60,7 +60,7 @@ onMounted(() => {
   }
 })
 const handleLogin = () =>{
-  axios.post('http://localhost/api/login', {
+  axios.post('/api/login', {
     name: credentials.name.replaceAll(' ', ''),
     password: credentials.password
   })
