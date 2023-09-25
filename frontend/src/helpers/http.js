@@ -2,7 +2,7 @@ import axios from "axios";
 
 const http = () => {
     let options = {
-        baseURL: 'http://localhost',
+        baseURL: 'http://31.31.199.42:81',
         headers: {}
     }
 
