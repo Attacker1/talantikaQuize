@@ -1,5 +1,4 @@
 import axios from "axios";
-import axiosData from "@/utils/axiosData";
 
 const http = () => {
     let options = {
