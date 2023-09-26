@@ -4,6 +4,7 @@ import QuizeView from "@/views/QuizeView.vue";
 import axios from "axios";
 import AdminView from "@/views/adminPanel/AdminView.vue";
 import ResultView from "@/views/ResultView.vue";
+import http from "@/helpers/http";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,7 +50,7 @@ router.beforeEach((to, from) => {
 })
 
 const checkTokenAuthenticity = () => {
-  axios.get('/api/user', {
+  http().get('/api/user', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }

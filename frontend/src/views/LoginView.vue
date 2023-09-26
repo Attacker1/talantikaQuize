@@ -30,6 +30,7 @@ import axios from "axios";
 import {useRouter} from "vue-router";
 import {useAdminStore} from "@/stores/admin";
 import {storeToRefs} from "pinia";
+import http from "@/helpers/http";
 
 const router = useRouter()
 const showPass = ref(false);
@@ -60,7 +61,7 @@ onMounted(() => {
   }
 })
 const handleLogin = () =>{
-  axios.post('/api/login', {
+  http().post('/api/login', {
     name: credentials.name.replaceAll(' ', ''),
     password: credentials.password
   })
