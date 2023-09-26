@@ -23,7 +23,7 @@ php artisan db:seed
 ```
 
 cd frontend
-Тут обязательно поменяйте в src/utils/axiosData.js константу hostname (для локального развертывания обычно используется localhost)
+Тут обязательно поменяйте в src/helpers/http.js baseURL (для локального развертывания обычно используется localhost)
 
 ```sh
 npm install
