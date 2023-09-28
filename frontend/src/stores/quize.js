@@ -7,6 +7,7 @@ export const useQuizeStore = defineStore('quize', () => {
   const quize = ref([]);
 
   const currentQuestion = ref({})
+  const order = ref(1)
   const queue = ref(1)
   const result = ref({})
   const answer = ref([])
@@ -27,5 +28,5 @@ export const useQuizeStore = defineStore('quize', () => {
   }
 
 
-  return { quize, currentQuestion, result, queue, answer, frozen, reset }
+  return { quize, currentQuestion, order, result, queue, answer, frozen, reset }
 })

@@ -28,7 +28,7 @@ import { useNotification } from "@kyvg/vue3-notification";
 
 const { notify }  = useNotification()
 const quizeStore = useQuizeStore();
-const { answer, currentQuestion, quize, frozen } = storeToRefs(quizeStore);
+const { answer, currentQuestion, order, quize, frozen } = storeToRefs(quizeStore);
 const timer = {
   isTimer: false
 }
@@ -87,7 +87,8 @@ const next = () => {
       isPrize: isPrize,
       isDone: isDone,
       doneIn: isDone ? (new Date()) : null,
-      freezeTo : frozenTime
+      freezeTo : frozenTime,
+      order: order.value
     }
     postQuizeData(questionResult)
   } else {
@@ -103,7 +104,8 @@ const updateQuestion = (nextQuestion) => {
   quizeStore.$patch({
     queue: nextQuestion,
     currentQuestion: quizeStore.quize.find(x => x.id === Number(nextQuestion)),
-    answer: []
+    answer: [],
+    order: order.value + 1
   })
 }
 

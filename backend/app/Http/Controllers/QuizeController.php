@@ -33,7 +33,8 @@ class QuizeController extends Controller
             'isDone' => 'required',
             'isCorrect' => 'required',
             'isPrize' => 'required',
-            'doneIn' => 'required_if:isDone,==,true'
+            'doneIn' => 'required_if:isDone,==,true',
+            'order' => 'required'
         ]);
 
         $result = $request->user()->result()->firstOrCreate(['user_id' => $request->user()->id]);
@@ -46,7 +47,8 @@ class QuizeController extends Controller
             'question' => $request->question,
             'isCorrect' => $request->isCorrect,
             'answer' => $request->answer ?? null,
-            'isPrize' => $request->isPrize
+            'isPrize' => $request->isPrize,
+            'order' => $request->order
         ];
         if($request->freezeTo) {
             $question['frozenTo'] = Carbon::now()->addMinutes((int)$request->freezeTo / 60);

@@ -35,7 +35,8 @@ const updateCurrent = () => {
             name: 'result'
           })
         } else {
-          let lastResult = response.data.results[response.data.results.length - 1];
+          let results = response.data.results.sort((x, y) => x.order - y.order);
+          let lastResult = results[results.length - 1];
           let lastQuestion = quize.value.find(x => x.id === lastResult.question_id);
           let frozenTime = null;
           if(lastResult.frozenTo) {
@@ -56,6 +57,7 @@ const updateCurrent = () => {
           quizeStore.$patch({
             queue: now.id,
             currentQuestion: now,
+            order: lastResult.order + 1,
             answer: [],
             frozen: {
               isFrozen: !!frozenTime,
