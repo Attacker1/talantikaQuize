@@ -14,13 +14,16 @@ import IconProfile from "@/components/icons/IconProfile.vue";
 import router from "@/router";
 import {useAdminStore} from "@/stores/admin";
 import {toRefs} from "vue";
+import {useQuizeStore} from "@/stores/quize";
 
 const adminStore = useAdminStore();
+const quizeStore = useQuizeStore();
 
 const { isAdmin } = toRefs(adminStore);
 
 const logout = () => {
   localStorage.removeItem('token')
+  quizeStore.reset();
   router.push({
     name: 'login'
   })

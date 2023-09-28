@@ -26,8 +26,8 @@ const { currentQuestion, queue, quize, frozen } = storeToRefs(quizeStore);
 
 const router = useRouter();
 
-const updateCurrent = () => {
-  http().get('/api/results')
+const updateCurrent = async() => {
+  await http().get('/api/results')
     .then((response) => {
       if(response.data !== '') {
         if(response.data.isDone === 1) {
@@ -81,6 +81,6 @@ onMounted(async () => {
       })
     });
 
-    updateCurrent()
+  await updateCurrent()
 })
 </script>
