@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quize;
 use App\Models\Result;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class QuizeController extends Controller
@@ -47,6 +48,9 @@ class QuizeController extends Controller
             'answer' => $request->answer ?? null,
             'isPrize' => $request->isPrize
         ];
+        if($request->freezeTo) {
+            $question['frozenTo'] = Carbon::now()->addMinutes((int)$request->freezeTo / 60);
+        }
 
         if(empty($result->results)) {
             $results = [$question];

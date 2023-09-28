@@ -10,7 +10,10 @@ export const useQuizeStore = defineStore('quize', () => {
   const queue = ref(1)
   const result = ref({})
   const answer = ref([])
-  const isFrozen = ref(false)
+  const frozen = reactive({
+    isFrozen: false,
+    frozenTo: null
+  })
 
   const reset = () => {
     quize.value = []
@@ -19,9 +22,10 @@ export const useQuizeStore = defineStore('quize', () => {
     queue.value = 1
     result.value = []
     answer.value = []
-    isFrozen.value = false
+    frozen.isFrozen = false
+    frozen.frozenTo = null
   }
 
 
-  return { quize, currentQuestion, result, queue, answer,isFrozen, reset }
+  return { quize, currentQuestion, result, queue, answer, frozen, reset }
 })

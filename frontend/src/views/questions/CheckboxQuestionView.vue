@@ -20,7 +20,7 @@ const answers = computed(() => {
   if(currentQuestion.value.wrongAnswers === null) {
     return quize.currentQuestion.rightAnswer
   } else {
-    return quize.currentQuestion.rightAnswer.concat(quize.currentQuestion.wrongAnswers).sort(() => Math.random() - 0.5)
+    return quize.currentQuestion.rightAnswer.concat(quize.currentQuestion.wrongAnswers)
   }
 })
 

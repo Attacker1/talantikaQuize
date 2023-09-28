@@ -1,5 +1,5 @@
 <template>
-  <div class="question">
+  <div class="question" :class="{ 'blur-sm' : frozen.isFrozen}">
     <Header/>
     <CheckboxQuestionView v-if="currentQuestion.questionType === 'checkbox'" />
     <RadioQuestionView v-if="currentQuestion.questionType === 'radio'" />
@@ -18,10 +18,11 @@ import TextareaQuestionView from "@/views/questions/TextareaQuestionView.vue";
 import TextQuestionView from "@/views/questions/TextQuestionView.vue";
 import {storeToRefs} from "pinia";
 import Header from "@/components/Header.vue";
+import {notify} from "@kyvg/vue3-notification";
 
 const quizeStore = useQuizeStore();
 
-const { currentQuestion, queue, quize } = storeToRefs(quizeStore);
+const { currentQuestion, queue, quize, frozen } = storeToRefs(quizeStore);
 
 const router = useRouter();
 
@@ -36,11 +37,30 @@ const updateCurrent = () => {
         } else {
           let lastResult = response.data.results[response.data.results.length - 1];
           let lastQuestion = quize.value.find(x => x.id === lastResult.question_id);
+          let frozenTime = null;
+          if(lastResult.frozenTo) {
+            let frozenTimeTo = Date.parse(lastResult.frozenTo);
+            let nowTime = Date.parse(new Date().toUTCString());
+
+            if((frozenTimeTo - nowTime) > 0) {
+              frozenTime = (frozenTimeTo - nowTime) / 1000;
+              notify({
+                title: "Предупреждение",
+                type: 'warn',
+                text: 'Вы были заморожены, у вас осталось ' + Math.round(frozenTime) + ' секунд заморозки'
+              });
+            }
+          }
+
           let now = quize.value.find(x => x.id === Number(lastResult.isCorrect ? lastQuestion.right_order : lastQuestion.wrong_order));
           quizeStore.$patch({
             queue: now.id,
             currentQuestion: now,
-            answer: []
+            answer: [],
+            frozen: {
+              isFrozen: !!frozenTime,
+              frozenTo: frozenTime
+            }
           })
         }
       } else {
